@@ -1,0 +1,333 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Sofia Mols - Digital Collage</title> 
+    <style> 
+        @import url('https://fonts.googleapis.com/css2?family=Antonio:wght@700&display=swap'); 
+
+        :root { 
+            --bg-color: hsl(333, 81%, 83%);  
+            --black: #000000; 
+            --float-speed: 4s; 
+            --shadow-light: rgba(255, 255, 255, 0.9); 
+        } 
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        } 
+
+        /* --- VISUAL ENHANCEMENT: CUSTOM SELECTION COLOR --- */
+        ::selection {
+            background: #000;
+            color: var(--bg-color);
+        }
+
+        body { 
+            background-color: var(--bg-color); 
+            font-family: 'Antonio', sans-serif;  
+            overflow-x: hidden; 
+            min-height: 200vh;  
+        } 
+
+        /* --- HEADER & NAVIGATION --- */
+        header { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            z-index: 1000; 
+            padding: 20px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            pointer-events: none;  
+        } 
+
+        .logo { 
+            position: relative;
+            width: clamp(140px, 50vw, 600px); 
+            height: auto;
+            pointer-events: auto; 
+            z-index: 2;
+        } 
+
+        .logo2 { 
+            position: relative;
+            width: clamp(150px, 70vw, 700px); 
+            height: auto;
+            pointer-events: auto; 
+            z-index: 2;
+        } 
+
+        .tm-master-wrapper { 
+            position: relative;
+            pointer-events: auto;
+            right: 20%; 
+            z-index: 99999;  
+            font-family: 'Arial Black', Gadget, sans-serif;
+        } 
+
+        .tm-gun-btn { 
+            cursor: pointer; 
+            display: block; 
+            position: relative; 
+            z-index: 10000;
+            outline: none; /* Accessible focus outlines are handled via standard element behaviors if desired */
+        } 
+   
+        .tm-gun-box { 
+            position: relative; 
+            width: clamp(150px, 70vw, 700px); 
+            transition: opacity 0.8s ease;  
+        } 
+   
+        .tm-gun-img { 
+            width: 80%; 
+            display: block; 
+            transform: translateX(-70%); 
+            transition: filter 0.4s ease; 
+        }
+
+        .tm-gun-img:hover {
+            filter: 
+            drop-shadow(0 0 2px #fff) 
+            drop-shadow(0 0 10px #ffeb3b) 
+            drop-shadow(0 0 15px #ff0000);
+        }
+
+        /* --- STRUCTURAL FIX: FIXED OVERLAY CLOSE BUTTON --- */
+        .tm-close-btn { 
+            cursor: pointer; 
+            position: fixed;   /* Changed to fixed so it floats over the fixed nav backdrop */
+            top: 30px;          
+            right: 40px;      
+            display: none;      
+            z-index: 100002;   /* Sits cleanly on top of side nav */
+        } 
+
+        .tm-close-x { 
+            font-size: 50px; 
+            color: white; 
+            line-height: 1; 
+        } 
+   
+        .tm-muzzle-burst { 
+            position: absolute; 
+            right: 60%; 
+            top: 20%;       
+            width: 80px; 
+            height: 30px; 
+            background: radial-gradient(circle, #fff 15%, #ffeb3b 40%, #ff0000 70%, transparent 98%); 
+            border-radius: 45%; 
+            opacity: 0; 
+            pointer-events: none; 
+            z-index: 100003;
+        } 
+      
+        #tm-toggle-checkbox:checked + .tm-gun-btn .tm-gun-box { 
+            animation: tm-recoil-left 0.405s ease-out;
+            opacity: 0; 
+            pointer-events: none; 
+            transition-delay: 0.3s; 
+        }
+
+        #tm-toggle-checkbox:checked + .tm-gun-btn .tm-muzzle-burst { 
+            animation: tm-flash-fire 0.312s ease-out forwards; 
+        } 
+
+        #tm-toggle-checkbox:checked + .tm-gun-btn + .tm-close-btn { 
+            display: block; 
+        }
+
+        @keyframes tm-recoil-left {
+            0% { transform: translateX(0); }
+            30% { transform: translateX(-30px) rotate(-5deg); } 
+            100% { transform: translateX(0); }
+        }
+  
+        @keyframes tm-flash-fire {
+            0% { opacity: 0; transform: scale(1); }
+            10% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        /* --- IMPROVED LAYOUT SPACE & RESPONSIVENESS (DYNAMIC GRID) --- */
+        #content-wrapper { 
+            position: relative; 
+            width: 100%; 
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 400px 5% 100px 5%;  /* Breathing room for absolute header and layout baseline */
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 150px 5%; 
+        } 
+
+        .floating-element, .cloud-inner, .portrait, .frame {
+            background: transparent !important;
+            border: none !important;
+            outline: none !important;
+            /* VISUAL ENHANCEMENT: SMOOTH IMAGE RENDERING EDGE FIX */
+            image-rendering: -webkit-optimize-contrast;
+        }
+
+        .floating-element { 
+            position: relative; 
+            animation: float var(--float-speed) ease-in-out infinite; 
+            transition: filter 0.3s ease; 
+            filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0)); 
+            cursor: pointer; 
+            width: 100%;
+            max-width: 500px;
+            justify-self: center;
+        } 
+
+        /* Collage effect: Staggers every alternate element frame layout downwards */
+        .floating-element:nth-child(even) {
+            margin-top: 120px;
+        }
+
+        .cloud-inner { position: relative; width: 100%; height: auto; } 
+        .portrait { display: block; width: 100%; height: auto; object-fit: contain; position: relative; z-index: 5; } 
+        .frame { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; object-fit: contain; } 
+        .frame-hart { position: absolute; top: 0; right: 0; width: 15%; height: auto; z-index: 100; pointer-events: auto; } 
+
+        .floating-element:hover { 
+            animation-play-state: paused; 
+            filter: drop-shadow(0 0 25px var(--shadow-light)); 
+            
+        } 
+
+        @keyframes float { 
+            0%, 100% { transform: translateY(0); } 
+            50% { transform: translateY(-25px); } 
+        } 
+
+  
+        .tm-side-nav { 
+            position: fixed; 
+            top: 0; 
+            right: -900px;  
+            width: 770px; 
+            height: 100vh; 
+            background: #00f120dc;  
+            transition: right 2s cubic-bezier(0.16, 1, 0.3, 1); 
+            padding-top: 20px; 
+            z-index: 100000; 
+        } 
+   
+        #tm-toggle-checkbox:checked ~ .tm-side-nav { right: 0; } 
+
+        .tm-menu-items { list-style: none; padding: 0; margin: 0; } 
+        .tm-menu-items li a { 
+            display: block; 
+            padding: 50px 40px; 
+            color: #fff; 
+            filter: 
+            drop-shadow(0 0 2px #fff) 
+            drop-shadow(0 0 10px #ffeb3b) 
+            drop-shadow(0 0 15px #ff0000);
+            text-decoration: none; 
+            font-size: 1.3rem; 
+            border-bottom:1px solid #ff000019; 
+        } 
+
+        .tm-menu-items li a:hover { background: #ffb4dc; color: #f9d7d7; }
+
+     
+        @media (max-width: 768px) {
+            #content-wrapper { 
+                grid-template-columns: 1fr; 
+                gap: 80px;
+                padding-top: 180px;
+            }
+            .floating-element:nth-child(even) {
+                margin-top: 0px;
+            }
+            .tm-gun-img { width: 250%; transform: translateX(-50%); }
+        }
+    </style> 
+</head> 
+<body> 
+
+    <header> 
+        <img src="logo.png" alt="Sofia Mols" class="logo"> 
+        <img src="stars.png" id="stars-img" alt="Sofia Mols" class="logo2" style="transition: opacity 0.5s;">
+
+        <div class="tm-master-wrapper"> 
+            <input type="checkbox" id="tm-toggle-checkbox" hidden> 
+       
+           
+            <label for="tm-toggle-checkbox" class="tm-gun-btn" tabindex="0" aria-label="Open Navigation Menu" role="button"> 
+              <div class="tm-gun-box"> 
+                  <img src="gun.png" alt="AK-47 Menu Icon" class="tm-gun-img"> 
+                  <span class="tm-muzzle-burst"></span> 
+              </div> 
+            </label> 
+       
+            <label for="tm-toggle-checkbox" class="tm-close-btn" tabindex="0" aria-label="Close Navigation Menu" role="button"> 
+              <div class="tm-close-x">&times;</div> 
+            </label> 
+          
+            <nav class="tm-side-nav"> 
+              <ul class="tm-menu-items"> 
+                <li><a href="sofia.html">SOFIA</a></li> 
+                <li><a href="painting.html">PAINTINGS</a></li> 
+                <li><a href="OTHER.html">OTHER</a></li> 
+              </ul> 
+            </nav> 
+        </div> 
+    </header> 
+
+    <main id="content-wrapper"> 
+        <div class="floating-element"> 
+            <div class="cloud-inner"> 
+                <img src="frame-left.png" alt="" class="frame"> 
+                <img src="hart l.png" alt="" class="frame-hart"> 
+                <img src="girl-painting.png" class="portrait"> 
+            </div> 
+        </div> 
+
+        <div class="floating-element" style="animation-delay: -1s;"> 
+            <div class="cloud-inner"> 
+                  <img src="frame-right.png" alt="" class="frame"> 
+                  <img src="girl-sitting.png" class="portrait"> 
+            </div> 
+        </div> 
+    </main> 
+
+<script>
+    const akTrigger = document.getElementById('tm-toggle-checkbox');
+    const stars = document.getElementById('stars-img');
+  
+    akTrigger.addEventListener('change', function() {
+      if (this.checked) {
+        stars.style.transitionDelay = '1.0s'; 
+        stars.style.opacity = '0';
+      } else {
+        stars.style.transitionDelay = '0s';
+        stars.style.opacity = '1';
+      }
+    });
+
+    /* ACCESSIBILITY ENHANCEMENT: HANDLES KEYBOARD KEYPRESS TRIGGERS */
+    const gunLabel = document.querySelector('.tm-gun-btn');
+    const closeLabel = document.querySelector('.tm-close-btn');
+
+    function handleKeyboardToggle(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            akTrigger.click();
+        }
+    }
+
+    gunLabel.addEventListener('keydown', handleKeyboardToggle);
+    closeLabel.addEventListener('keydown', handleKeyboardToggle);
+</script>
+  
+</body> 
+</html>
