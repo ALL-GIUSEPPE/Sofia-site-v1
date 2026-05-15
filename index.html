@@ -20,7 +20,6 @@
             box-sizing: border-box; 
         } 
 
-        /* --- VISUAL ENHANCEMENT: CUSTOM SELECTION COLOR --- */
         ::selection {
             background: #000;
             color: var(--bg-color);
@@ -33,7 +32,6 @@
             min-height: 200vh;  
         } 
 
-        /* --- HEADER & NAVIGATION --- */
         header { 
             position: absolute; 
             top: 0; 
@@ -76,7 +74,7 @@
             display: block; 
             position: relative; 
             z-index: 10000;
-            outline: none; /* Accessible focus outlines are handled via standard element behaviors if desired */
+            outline: none;
         } 
    
         .tm-gun-box { 
@@ -94,19 +92,18 @@
 
         .tm-gun-img:hover {
             filter: 
-            drop-shadow(0 0 2px #fff) 
-            drop-shadow(0 0 10px #ffeb3b) 
-            drop-shadow(0 0 15px #ff0000);
+            drop-shadow(0 0 2px #f4f4f4) 
+            drop-shadow(0 0 10px #ffe100) 
+            drop-shadow(0 0 13px #ff0000);
         }
 
-        /* --- STRUCTURAL FIX: FIXED OVERLAY CLOSE BUTTON --- */
         .tm-close-btn { 
             cursor: pointer; 
-            position: fixed;   /* Changed to fixed so it floats over the fixed nav backdrop */
+            position: fixed;   
             top: 30px;          
             right: 40px;      
             display: none;      
-            z-index: 100002;   /* Sits cleanly on top of side nav */
+            z-index: 100002;   
         } 
 
         .tm-close-x { 
@@ -119,20 +116,20 @@
             position: absolute; 
             right: 60%; 
             top: 20%;       
-            width: 80px; 
-            height: 30px; 
-            background: radial-gradient(circle, #fff 15%, #ffeb3b 40%, #ff0000 70%, transparent 98%); 
-            border-radius: 45%; 
+            width: 90px; 
+            height: 20px; 
+            background: radial-gradient(circle, #fff 15%, #ffeb3b 40%, #ff000089 70%, transparent 98%); 
+            border-radius: 35%; 
             opacity: 0; 
             pointer-events: none; 
             z-index: 100003;
         } 
       
         #tm-toggle-checkbox:checked + .tm-gun-btn .tm-gun-box { 
-            animation: tm-recoil-left 0.405s ease-out;
+            animation: tm-recoil-left 0.40s ease-out;
             opacity: 0; 
             pointer-events: none; 
-            transition-delay: 0.3s; 
+            transition-delay: 0.4s; 
         }
 
         #tm-toggle-checkbox:checked + .tm-gun-btn .tm-muzzle-burst { 
@@ -155,13 +152,12 @@
             100% { opacity: 0; transform: scale(2); }
         }
 
-        /* --- IMPROVED LAYOUT SPACE & RESPONSIVENESS (DYNAMIC GRID) --- */
         #content-wrapper { 
             position: relative; 
             width: 100%; 
             max-width: 1400px;
             margin: 0 auto;
-            padding: 400px 5% 100px 5%;  /* Breathing room for absolute header and layout baseline */
+            padding: 400px 5% 100px 5%;  
             display: grid;
             grid-template-columns: repeat(2, 1fr); 
             gap: 150px 5%; 
@@ -171,7 +167,6 @@
             background: transparent !important;
             border: none !important;
             outline: none !important;
-            /* VISUAL ENHANCEMENT: SMOOTH IMAGE RENDERING EDGE FIX */
             image-rendering: -webkit-optimize-contrast;
         }
 
@@ -186,7 +181,6 @@
             justify-self: center;
         } 
 
-        /* Collage effect: Staggers every alternate element frame layout downwards */
         .floating-element:nth-child(even) {
             margin-top: 120px;
         }
@@ -199,7 +193,6 @@
         .floating-element:hover { 
             animation-play-state: paused; 
             filter: drop-shadow(0 0 25px var(--shadow-light)); 
-            
         } 
 
         @keyframes float { 
@@ -207,15 +200,14 @@
             50% { transform: translateY(-25px); } 
         } 
 
-  
         .tm-side-nav { 
             position: fixed; 
             top: 0; 
             right: -900px;  
             width: 770px; 
             height: 100vh; 
-            background: #00f120dc;  
-            transition: right 2s cubic-bezier(0.16, 1, 0.3, 1); 
+            background: #00f120;  
+            transition: right 2.9s cubic-bezier(0.16, 1, 0.3, 1); 
             padding-top: 20px; 
             z-index: 100000; 
         } 
@@ -238,17 +230,78 @@
 
         .tm-menu-items li a:hover { background: #ffb4dc; color: #f9d7d7; }
 
-     
+        /* UPDATED RESPONSIVE MOBILE BLOCK */
         @media (max-width: 768px) {
+            header {
+                padding: 15px 4%;
+            }
+
+            .logo { 
+                width: clamp(100px, 35vw, 220px); 
+            } 
+
+            .logo2 { 
+                width: clamp(110px, 40vw, 240px); 
+            }
+
+            /* Maintained desktop relative wrapper positioning for overlap stability */
+            .tm-master-wrapper {
+                right: 20%;
+            }
+
+            .tm-gun-box {
+                width: clamp(110px, 40vw, 240px);
+            }
+
+            /* Restored translation factor to create the clean overlap alignment over the stars */
+            .tm-gun-img { 
+                width: 80%; 
+                transform: translateX(-70%); 
+            }
+
+            .tm-muzzle-burst {
+                right: 60%;
+                top: 20%;
+                width: 45px;
+                height: 10px;
+            }
+
+            .tm-side-nav {
+                width: 100%;
+                max-width: 100%;
+                right: -100%;
+                transition: right 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            #tm-toggle-checkbox:checked ~ .tm-side-nav { 
+                right: 0; 
+            }
+
+            .tm-menu-items {
+                padding-top: 80px;
+            }
+
+            .tm-menu-items li a {
+                padding: 30px 25px;
+                font-size: 1.5rem;
+                text-align: center;
+            }
+
+            .tm-close-btn {
+                top: 20px;
+                right: 25px;
+            }
+
             #content-wrapper { 
                 grid-template-columns: 1fr; 
-                gap: 80px;
-                padding-top: 180px;
+                gap: 60px;
+                padding-top: 160px;
+                padding-bottom: 60px;
             }
+
             .floating-element:nth-child(even) {
                 margin-top: 0px;
             }
-            .tm-gun-img { width: 250%; transform: translateX(-50%); }
         }
     </style> 
 </head> 
@@ -261,7 +314,6 @@
         <div class="tm-master-wrapper"> 
             <input type="checkbox" id="tm-toggle-checkbox" hidden> 
        
-           
             <label for="tm-toggle-checkbox" class="tm-gun-btn" tabindex="0" aria-label="Open Navigation Menu" role="button"> 
               <div class="tm-gun-box"> 
                   <img src="gun.png" alt="AK-47 Menu Icon" class="tm-gun-img"> 
@@ -314,7 +366,6 @@
       }
     });
 
-    /* ACCESSIBILITY ENHANCEMENT: HANDLES KEYBOARD KEYPRESS TRIGGERS */
     const gunLabel = document.querySelector('.tm-gun-btn');
     const closeLabel = document.querySelector('.tm-close-btn');
 
