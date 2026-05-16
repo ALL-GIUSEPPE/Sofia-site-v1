@@ -39,34 +39,33 @@
             position: absolute; 
             top: 0; 
             left: 0; 
-            width: 100%; 
+            width: 220%; 
+            max-width: 100vw;
             z-index: 1000; 
-            padding: 20px 5%; 
+            padding: 2px 1%; 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: space-evenly ; 
             align-items: center; 
         } 
 
         .logo { 
             position: relative;
-            width: clamp(140px, 50vw, 600px); 
+            width: clamp(140px, 50vw, 700px); 
             height: auto;
-            z-index: 2;
+            z-index: 1;
         } 
 
         .logo2 { 
-            position: relative;
-            width: clamp(150px, 70vw, 700px); 
+            position: absolute;
+            width: clamp(140px, 50vw, 700px); 
             height: auto;
-            z-index: 2;
+            z-index: 1;
             transition: opacity 0.5s;
             will-change: opacity;
         } 
 
         .tm-master-wrapper { 
-            position: sticky;
-            
-            
+            position: reletive;
             z-index: 99999;  
             font-family: 'Arial Black', Gadget, sans-serif;
             display: flex;
@@ -84,16 +83,19 @@
    
         .tm-gun-box { 
             position: relative; 
-            width: clamp(150px, 70vw, 700px); 
+            width: clamp(140px, 50vw, 700px); 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
             transition: opacity 0.8s ease;  
             will-change: transform, opacity;
         } 
    
         .tm-gun-img { 
             width: 70%; 
-        
             display: block; 
-            transform: translateX(-130%); 
+            transform: none; 
             transition: filter 0.4s ease; 
         }
 
@@ -121,7 +123,7 @@
    
         .tm-muzzle-burst { 
             position: absolute; 
-            right: 60%; 
+            right: 10%; 
             top: 20%;      
             width: 90px; 
             height: 20px; 
@@ -188,6 +190,7 @@
             max-width: 500px;
             justify-self: center;
             will-change: transform;
+            margin-top: 50px;
         } 
 
         .floating-element:nth-child(even) {
@@ -224,7 +227,7 @@
             position: absolute; 
             top: 0; 
             right: 0; 
-            width: 15%; 
+            width: 25%; 
             height: auto; 
             z-index: 100; 
             pointer-events: auto; 
@@ -244,7 +247,7 @@
             position: fixed; 
             top: 0; 
             right: -900px;  
-            width: 770px; 
+            width: 720px; 
             height: 100vh; 
             background: var(--nav-bg); 
             transition: right 2.9s cubic-bezier(0.16, 1, 0.3, 1); 
@@ -289,9 +292,9 @@
             }
 
             .tm-gun-box {
-                width: clamp(110px, 40vw, 240px);
+                width: clamp(120px, 35vw, 220px);
                 display: flex;
-                justify-content: flex-end;
+                justify-content: center;
             }
 
             .tm-gun-img { 
@@ -300,12 +303,7 @@
                 transform: translateX(0); 
             }
 
-            .tm-muzzle-burst {
-                right: 10%;
-                top: 20%;
-                width: 45px;
-                height: 10px;
-            }
+           
 
             .tm-side-nav {
                 width: 100%;
@@ -338,7 +336,7 @@
             }
 
             .floating-element {
-                width: 90%;
+                width: 100%;
                 max-width: 400px;
             }
 
@@ -352,9 +350,10 @@
 
     <header> 
         <img src="logo.png" alt="Sofia Mols" class="logo"> 
-        <img src="stars.png" id="stars-img" alt="Sofia Mols Stars Background" class="logo2">
+        
 
         <div class="tm-master-wrapper"> 
+            <img src="stars.png" id="stars-img" alt="" class="logo2" style="position: absolute; z-index: 1;">
             <input type="checkbox" id="tm-toggle-checkbox" hidden> 
        
             <label for="tm-toggle-checkbox" class="tm-gun-btn" tabindex="0" aria-label="Open Navigation Menu" role="button"> 
